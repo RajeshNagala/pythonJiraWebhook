@@ -152,8 +152,8 @@ def getJiraIssues():
     #                       responseCode=200)
 
 
-@app.route('/employess', methods=['POST', 'GET'])
-def getEmployess():
+@app.route('/orderDetails', methods=['POST', 'GET'])
+def getOrderDetails():
 
     r = requests.get('https://github.com/timeline.json')
     r.json()
@@ -180,8 +180,8 @@ def handlebuildDetails():
             return accessGithub()
         elif buildaction == 'jiradetails.action':
             return getJiraIssues()
-        elif buildaction == 'employeeDetails.action':
-            return getEmployess()
+        elif buildaction == 'OrderDetails.action':
+            return getOrderDetails()
         elif buildaction == 'ci.action':
             global sessionId
             sessionId = request.json["sessionId"]
