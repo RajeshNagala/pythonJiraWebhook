@@ -26,19 +26,19 @@ curl -X POST -H "Content-Type: application/json; charset=utf-8"
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'lakshman'}
+    user = {'nickname': 'Raj'}
 
     posts = [
         {
-            'author': {'nickname': 'lakshman'},
+            'author': {'nickname': 'Rajesh'},
             'body': 'Beautiful day in India'
         },
         {
-            'author': {'nickname': 'madhu'},
+            'author': {'nickname': 'Jo'},
             'body': 'Good man'
         },
         {
-            'author': {'nickname': 'anoop'},
+            'author': {'nickname': 'test'},
             'body': 'Quality Assurance'
         }
     ]
@@ -134,7 +134,7 @@ def accesscircleci(sessionId):
     circle = mycirclecimodule.mycircleclient()
     triggerBuild = circle.triggerbuild()
     speech = "build intiated.."
-    return buildResponse(speech=speech, displayText=speech, source="lakshman web hook", contextOut=None,
+    return buildResponse(speech=speech, displayText=speech, source="Rajesh's web hook", contextOut=None,
                          responseCode=200)
 
 
@@ -144,7 +144,7 @@ def getJiraIssues():
     # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
     #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
     results = jiraclient.getCurrentUserIssues(maxResults=10)
-    return buildResponse(speech=results, displayText=results, contextOut=None, source="lakshman web hook",
+    return buildResponse(speech=results, displayText=results, contextOut=None, source="Rajesh web hook",
                          responseCode=200)
     #   restClient = RestAPI.restClient()
     #   results = restClient.getCurrentUserIssues()
@@ -197,12 +197,12 @@ def cipostaccept():
         response = requests.post('https://api.api.ai/api/query?v=20150910', headers=headers, data=data)
         print(response.content.decode("utf-8"))
         return "success"
-        # return buildResponse(speech=artifactsList, displayText=artifactsList, source="lakshman webhook",
+        # return buildResponse(speech=artifactsList, displayText=artifactsList, source="Rajesh webhook",
         #                      contextOut=None, responseCode=200)
         # return json.dumps(artifactsList)
     else:
         speech = "fail to get the artifacts"
-        return buildResponse(speech=speech, displayText=speech, source="lakshman webhook",
+        return buildResponse(speech=speech, displayText=speech, source="Rajesh webhook",
                              contextOut=None, responseCode=400)
 
 
@@ -225,7 +225,7 @@ def processFirebaseRequests(request):
             loginInfo = firebaseapp.loginFirebase(email=username, password=password)
             result = json.loads(loginInfo)
             # here we are not sending the User object as response
-            return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+            return buildResponse(speech=result['status'], displayText=result['status'], source='Rajesh webhook',
                                  contextOut=None,
                                  responseCode=result['responsecode'])
         elif action == 'firebase.status.action':
@@ -233,7 +233,7 @@ def processFirebaseRequests(request):
             statusInfo = firebaseapp.accessDatabase(email=username, password=password, item=item)
             result = json.loads(statusInfo)
             # here we are not sending the User object as response
-            return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+            return buildResponse(speech=result['status'], displayText=result['status'], source='Rajesh webhook',
                                  contextOut=None,
                                  responseCode=result['responsecode'])
         else:
@@ -249,7 +249,7 @@ def processFirebaseRequests(request):
         createUserInfo = firebaseapp.createUser(username=username, password=password)
         result = json.loads(createUserInfo)
         # here we are not sending the User object as response
-        return buildResponse(speech=result['status'], displayText=result['status'], source='lak webhook',
+        return buildResponse(speech=result['status'], displayText=result['status'], source='Rajesh webhook',
                              contextOut=result['user'], responseCode=result['responsecode'])
 
 
@@ -257,7 +257,7 @@ def processGitCommitDetails(jsonresult):
     speech = jsonresult
     # for sp in speech:
     #     print(sp)
-    return buildResponse(speech=speech, displayText=speech, source="lakshman webhook", contextOut=None,
+    return buildResponse(speech=speech, displayText=speech, source="Rajesh webhook", contextOut=None,
                          responseCode=200)
 
     # return buildGitResponse(speech=None, displayText=None, source=None, contextOut=None, responseCode=200)
@@ -273,7 +273,7 @@ def buildGitResponse(speech, displayText, source, contextOut, responseCode):
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
-        {'speech': "", 'displayText': "displaytext", 'source': "lakshman",
+        {'speech': "", 'displayText': "displaytext", 'source': "Rajesh webhook",
          'contextOut': None, 'message': messages}), responseCode
 
 
