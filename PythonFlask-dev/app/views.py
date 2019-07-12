@@ -152,6 +152,23 @@ def getJiraIssues():
     #                       responseCode=200)
 
 
+@app.route('/jiraissues', methods=['POST', 'GET'])
+def getEmployess():
+
+    r = requests.get('https://github.com/timeline.json')
+    r.json()
+    return buildResponse(speech=r.json(), displayText=r.json(), contextOut=None, source="Rajesh web hook",responseCode=200)
+
+
+    # jiraclient = jiramodule.myjiraclient()
+    # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
+    #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
+    # results = jiraclient.getCurrentUserIssues(maxResults=10)
+    # return buildResponse(speech=results, displayText=results, contextOut=None, source="Rajesh web hook",
+    #                      responseCode=200)contextOut=None, source="Rajesh Test",
+    #                       responseCode=200)
+
+
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
     try:
@@ -163,6 +180,8 @@ def handlebuildDetails():
             return accessGithub()
         elif buildaction == 'jiradetails.action':
             return getJiraIssues()
+        elif buildaction == 'employeeDetails.action':
+            return getEmployess()
         elif buildaction == 'ci.action':
             global sessionId
             sessionId = request.json["sessionId"]
