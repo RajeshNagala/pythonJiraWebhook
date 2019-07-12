@@ -152,7 +152,7 @@ def getJiraIssues():
     #                       responseCode=200)
 
 
-@app.route('/jiraissues', methods=['POST', 'GET'])
+@app.route('/employess', methods=['POST', 'GET'])
 def getEmployess():
 
     r = requests.get('https://github.com/timeline.json')
