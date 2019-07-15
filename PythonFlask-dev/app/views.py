@@ -184,7 +184,7 @@ def getOrderDetailsv2():
 
     r = requests.get('http://dummy.restapiexample.com/api/v1/employees')
     r.json()
-    return  buildResponseforV2(speech=r.json(), displayText=r.json(), contextOut=None, source="Rajesh web hook",responseCode=200)
+    return  buildResponseforV2(speech=r.json()["message"], displayText=r.json()["message"], contextOut=None, source="Rajesh web hook",responseCode=200)
 
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
@@ -357,7 +357,7 @@ def buildResponseforV2(speech, displayText, source, contextOut, responseCode):
         {
             'text': {
                 'text': [
-                    'Hello  Rajesh'
+                    displayText
                 ]
             }
         }
