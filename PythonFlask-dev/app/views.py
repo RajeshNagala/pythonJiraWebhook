@@ -182,7 +182,7 @@ def getOrderDetails():
 @app.route('/orderDetails', methods=['POST', 'GET'])
 def getOrderDetailsv2():
 
-    r = requests.get('http://dummy.restapiexample.com/api/v1/employees')
+    r = requests.get('https://github.com/timeline.json')
     r.json()
     return  buildResponseforV2(speech=r.json()["message"], displayText=r.json()["message"], contextOut=None, source="Rajesh web hook",responseCode=200)
 
