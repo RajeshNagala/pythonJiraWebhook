@@ -342,10 +342,10 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
          'contextOut': contextOut}), responseCode
 
 def buildResponseforV2(speech, displayText, source, contextOut, responseCode):
-    messages = '[{"type":0,"speech":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    messages = '[{"type":0,"fulfillmentText":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
     # return jsonify(
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
-        {'fulfillmentText': speech, 'fulfillmentMessages': displayText, 'source': source,
-         'contextOut': contextOut}), responseCode
+        {'fulfillmentText': speech,'source': source,
+         'outputContexts': contextOut}), responseCode
