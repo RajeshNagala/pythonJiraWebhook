@@ -182,7 +182,7 @@ def getOrderDetails():
 @app.route('/orderDetails', methods=['POST', 'GET'])
 def getOrderDetailsv2():
 
-    r = requests.get('https://github.com/timeline.json')
+    r = requests.get('http://dummy.restapiexample.com/api/v1/employees')
     r.json()
     return  buildResponseforV2(speech=r.json(), displayText=r.json(), contextOut=None, source="Rajesh web hook",responseCode=200)
 
@@ -220,7 +220,7 @@ def handlebuildDetailsv2():
                 return getOrderDetailsv2()
             elif buildaction == 'ci.action':
                 global sessionId
-                sessionId = request.json["sessionId"]
+                sessionId = request.json["session"]
                 return accesscircleci(sessionId)
             return buildaction
 
