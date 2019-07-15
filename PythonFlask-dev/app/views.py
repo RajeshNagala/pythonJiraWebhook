@@ -151,6 +151,15 @@ def getJiraIssues():
     #   return buildResponse(speech=results, displayText=results, contextOut=None, source="Rajesh Test",
     #                       responseCode=200)
 
+@app.route('/jiraissues', methods=['POST', 'GET'])
+def getJiraIssuesv2():
+    jiraclient = jiramodule.myjiraclient()
+    # for jiraIssue in jiraclient.getCurrentUserIssues(maxResults=10):
+    #     print(jiraclient.getIssuedetails(jiraIssue).fields.summary)
+    results = jiraclient.getCurrentUserIssues(maxResults=10)
+    return  buildResponseforV2(speech=results, displayText=results, contextOut=None, source="Rajesh web hook",
+                         responseCode=200)
+
 
 @app.route('/orderDetails', methods=['POST', 'GET'])
 def getOrderDetails():
@@ -158,6 +167,8 @@ def getOrderDetails():
     r = requests.get('https://github.com/timeline.json')
     r.json()
     return buildResponse(speech=r.json(), displayText=r.json(), contextOut=None, source="Rajesh web hook",responseCode=200)
+
+
 
 
     # jiraclient = jiramodule.myjiraclient()
@@ -168,6 +179,12 @@ def getOrderDetails():
     #                      responseCode=200)contextOut=None, source="Rajesh Test",
     #                       responseCode=200)
 
+@app.route('/orderDetails', methods=['POST', 'GET'])
+def getOrderDetailsv2():
+
+    r = requests.get('https://github.com/timeline.json')
+    r.json()
+    return  buildResponseforV2(speech=r.json(), displayText=r.json(), contextOut=None, source="Rajesh web hook",responseCode=200)
 
 @app.route('/buildhook', methods=['POST', 'GET'])
 def handlebuildDetails():
@@ -187,6 +204,25 @@ def handlebuildDetails():
             sessionId = request.json["sessionId"]
             return accesscircleci(sessionId)
         return buildaction
+
+@app.route('/buildhookV2', methods=['POST', 'GET'])
+def handlebuildDetailsv2():
+        try:
+            if request.json["payload"]:
+                return cipostaccept()
+        except KeyError as e:
+            buildaction = getActionFromWebhook(request=request)
+            if buildaction == "gitdetails.action":
+                return accessGithub()
+            elif buildaction == 'jiradetails.action':
+                return getJiraIssuesv2()
+            elif buildaction == 'OrderDetails.action':
+                return getOrderDetailsv2()
+            elif buildaction == 'ci.action':
+                global sessionId
+                sessionId = request.json["sessionId"]
+                return accesscircleci(sessionId)
+            return buildaction
 
 
 @app.route('/cipostaccept', methods=['POST', 'GET'])
@@ -303,4 +339,13 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
     #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
         {'speech': speech, 'displayText': displayText, 'source': source,
+         'contextOut': contextOut}), responseCode
+
+def buildResponseforV2(speech, displayText, source, contextOut, responseCode):
+    messages = '[{"type":0,"speech":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    # return jsonify(
+    #     {'speech': speech, 'displayText': displayText, 'source': source,
+    #      'contextOut': contextOut, 'message': messages}), responseCode
+    return jsonify(
+        {'fulfillmentText': speech, 'fulfillmentMessages': displayText, 'source': source,
          'contextOut': contextOut}), responseCode
