@@ -211,7 +211,7 @@ def handlebuildDetailsv2():
             if request.json["payload"]:
                 return cipostaccept()
         except KeyError as e:
-            buildaction = getActionFromWebhook(request=request)
+            buildaction = getActionFromWebhookv2(request=request)
             if buildaction == "gitdetails.action":
                 return accessGithub()
             elif buildaction == 'jiradetails.action':
@@ -263,6 +263,11 @@ def cipostaccept():
 
 def getActionFromWebhook(request):
     return request.json["result"]["action"]
+
+def getActionFromWebhookv2(request):
+    return request.json["queryResult"]["action"]
+
+
 
 
 def processFirebaseRequests(request):
@@ -342,7 +347,7 @@ def buildResponse(speech, displayText, source, contextOut, responseCode):
          'contextOut': contextOut}), responseCode
 
 def buildResponseforV2(speech, displayText, source, contextOut, responseCode):
-    messages = '[{"type":0,"fulfillmentText":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
+    # messages = '[{"type":0,"fulfillmentText":"build server not able to serve your request"},{"imageUrl":"https://www.sencha.com/wp-content/uploads/2016/02/icon-sencha-test-cli.png","type":3}]'
     # return jsonify(
     #     {'speech': speech, 'displayText': displayText, 'source': source,
     #      'contextOut': contextOut, 'message': messages}), responseCode
