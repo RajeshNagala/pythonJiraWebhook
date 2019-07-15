@@ -348,13 +348,25 @@ def buildResponseforV2(speech, displayText, source, contextOut, responseCode):
     #      'contextOut': contextOut, 'message': messages}), responseCode
     return jsonify(
         {'fulfillmentText': speech,
-         "fulfillmentMessages":[
+         'fulfillmentMessages':[
         {
-            "text": {
-                "text": [
-                    "Hello I'm Rajesh"
+            'text': {
+                'text': [
+                    'Hello  Rajesh'
                 ]
             }
         }
-     ],'source': source,
-        'outputContexts': contextOut}), responseCode
+     ],'source': source}), responseCode
+
+    # return jsonify(
+    #     {'fulfillmentText': speech,
+    #      "fulfillmentMessages":[
+    #     {
+    #         "text": {
+    #             "text": [
+    #                 "Hello I'm Rajesh"
+    #             ]
+    #         }
+    #     }
+    #  ],'source': source,
+    #     'outputContexts': contextOut}), responseCode
